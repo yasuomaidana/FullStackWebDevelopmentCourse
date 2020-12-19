@@ -1,0 +1,27 @@
+{
+  "name": "git-pract",
+  "version": "1.0.0",
+  "description": "This is a test directory to learn git and node",
+  "main": "index.html",
+  "scripts": {
+    "start":"npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite":"lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yasuomaidana/VulpuxMecatroncus.git"
+  },
+  "author": "Yasuo Maidana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yasuomaidana/VulpuxMecatroncus/issues"
+  },
+  "homepage": "https://github.com/yasuomaidana/VulpuxMecatroncus#readme",
+  "dependencies": {
+    "save-dev": "0.0.1-security"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}

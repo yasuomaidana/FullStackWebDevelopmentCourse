@@ -82,3 +82,20 @@ body{
     bottom: 0px;
     z-index: 1;
 }
+
+$float-title-text: #FFFAF0;
+
+.modal-header
+{
+    background-color: $background-dark;
+    color: $float-title-text;
+    button
+    {
+        color:$float-title-text;
+    }
+}
+
+.modal-body
+{
+    background-color: $background-pale;
+}

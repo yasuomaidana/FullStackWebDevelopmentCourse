@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yasuomaidana/VulpuxMecatroncus.git"
+    "url": "git+https://github.com/yasuomaidana/FullStackWebDevelopmentCourse.git"
   },
   "author": "Yasuo Maidana",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yasuomaidana/VulpuxMecatroncus/issues"
+    "url": "https://github.com/yasuomaidana/FullStackWebDevelopmentCourse/issues"
   },
-  "homepage": "https://github.com/yasuomaidana/VulpuxMecatroncus#readme",
+  "homepage": "https://github.com/yasuomaidana/FullStackWebDevelopmentCourse#readme",
   "dependencies": {
     "bootstrap": "^4.5.3",
     "bootstrap-social": "^5.1.1",

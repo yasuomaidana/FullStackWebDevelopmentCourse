@@ -1,0 +1,21 @@
+{
+  "name": "git-pract",
+  "version": "1.0.0",
+  "description": "Angular web development excersices",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yasuomaidana/FullStackWebDevelopmentCourse.git"
+  },
+  "author": "Yasuo Ignacio Maidana Perez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yasuomaidana/FullStackWebDevelopmentCourse/issues"
+  },
+  "homepage": "https://github.com/yasuomaidana/FullStackWebDevelopmentCourse#readme",
+  "devDependencies": {}
+}

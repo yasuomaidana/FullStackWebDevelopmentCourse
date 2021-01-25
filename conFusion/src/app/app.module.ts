@@ -13,15 +13,25 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 import 'hammerjs';
+//Import components
 import { MenuComponent } from './menu/menu.component';
 import {MatListModule} from '@angular/material/list';
 import { DishdetailComponent } from './dishdetail/dishdetail.component'; 
+import { HeaderComponent } from './header/header.component'
+import { FooterComponent } from './footer/footer.component';
+
+//Import services
+import {DishService} from './services/dish.service';
+
 
 @NgModule({
+  //Import the components created
   declarations: [
     AppComponent,
     MenuComponent,
-    DishdetailComponent
+    DishdetailComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   //Imports again the modules imported, but now they are included in NgModule(s)
   imports: [
@@ -34,7 +44,10 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
     MatCardModule,
     MatButtonModule
   ],
-  providers: [],
+  //Import the services created
+  providers: [
+    DishService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

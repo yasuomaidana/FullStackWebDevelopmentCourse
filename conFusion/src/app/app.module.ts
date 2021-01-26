@@ -25,7 +25,8 @@ import { ContactComponent } from './contact/contact.component';
 
 //Import services
 import {DishService} from './services/dish.service';
-import {PromotionService} from './services/promotion.service'
+import {PromotionService} from './services/promotion.service';
+import {LeaderService} from './services/leader.service';
 
 //Import module
 import {AppRoutingModule} from './app-routing/app-routing.module'
@@ -57,7 +58,8 @@ import {AppRoutingModule} from './app-routing/app-routing.module'
   //Import the services created
   providers: [
     DishService,
-    PromotionService
+    PromotionService,
+    LeaderService
   ],
   bootstrap: [AppComponent]
 })

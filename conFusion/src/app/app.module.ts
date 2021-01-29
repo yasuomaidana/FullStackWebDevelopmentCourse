@@ -10,7 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatDialogModule} from '@angular/material/dialog';
 
 import 'hammerjs';
 //Import components
@@ -22,6 +22,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { LoginComponent } from './login/login.component';
 
 //Import services
 import {DishService} from './services/dish.service';
@@ -29,7 +30,8 @@ import {PromotionService} from './services/promotion.service';
 import {LeaderService} from './services/leader.service';
 
 //Import module
-import {AppRoutingModule} from './app-routing/app-routing.module'
+import {AppRoutingModule} from './app-routing/app-routing.module';
+
 
 @NgModule({
   //Import the components created
@@ -41,7 +43,8 @@ import {AppRoutingModule} from './app-routing/app-routing.module'
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent
   ],
   //Imports again the elements and modules imported, but now they are included in NgModule(s)
   imports: [
@@ -53,13 +56,17 @@ import {AppRoutingModule} from './app-routing/app-routing.module'
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule
   ],
   //Import the services created
   providers: [
     DishService,
     PromotionService,
     LeaderService
+  ],
+  entryComponents:[
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })

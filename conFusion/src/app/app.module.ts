@@ -14,9 +14,13 @@ import { MatDialogModule } from '@angular/material/dialog';//Enable dialogs
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; //import forms
+import { ReactiveFormsModule } from '@angular/forms';//import reactive forms
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import 'hammerjs';
+
 //Import components
 import { MenuComponent } from './menu/menu.component';
 import {MatListModule} from '@angular/material/list';
@@ -65,7 +69,10 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
     MatInputModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   //Import the services created
   providers: [

@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms'; //import forms
 import { ReactiveFormsModule } from '@angular/forms';//import reactive forms
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import 'hammerjs';
 
 //Import components
@@ -39,6 +39,7 @@ import {LeaderService} from './services/leader.service';
 
 //Import module
 import {AppRoutingModule} from './app-routing/app-routing.module';
+
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ],
   //Import the services created
   providers: [

@@ -4,6 +4,8 @@
 import { Component, OnInit} from '@angular/core';
 //To use information using url parameters
 import {Params,ActivatedRoute} from '@angular/router';
+//Switch map allow us to use observables elements
+import { switchMap } from 'rxjs/operators';
 import {Location} from '@angular/common';
 import {Dish} from '../shared/dish'
 //Import services
@@ -19,13 +21,32 @@ export class DishdetailComponent implements OnInit
     //Since we are not passing the information through
     //@Input()
     dish: Dish;
+    dishIds:string[];
+    prev:string;
+    next:string;
     constructor(private dishService:DishService,
       private location:Location,
       private route:ActivatedRoute) { }
 
     ngOnInit() {
-      let id = this.route.snapshot.params['id'];
-      this.dishService.getDish(id).subscribe((dish)=>this.dish=dish);
+      //Takes and snapshot of the current url state and get the params
+      //let id = this.route.snapshot.params['id'];
+      //this.dishService.getDish(id).subscribe((dish)=>this.dish=dish);
+      this.route.params.pipe(
+        switchMap((params:Params)=> 
+        this.dishService.getDish(params['id']))).
+        subscribe((dish=>{
+          this.dish=dish;
+          this.setPrevNext(dish.id);}));
+        
+      this.dishService.getDishID().subscribe((dishIds)=>this.dishIds=dishIds);
+    }
+
+    setPrevNext(dishId:string){
+      const index = this.dishIds.indexOf(dishId);
+      this.prev = this.dishIds[(this.dishIds.length+index-1)%this.dishIds.length];
+      this.next = this.dishIds[(this.dishIds.length+index+1)%this.dishIds.length];
+
     }
     goBack(): void{
       this.location.back();

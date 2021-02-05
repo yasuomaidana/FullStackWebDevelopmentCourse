@@ -19,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';//import reactive forms
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
+
 import 'hammerjs';
 
 //Import components
@@ -74,7 +76,8 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
     ReactiveFormsModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSliderModule
   ],
   //Import the services created
   providers: [

@@ -20,12 +20,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import 'hammerjs';
 
 //Import components
 import { MenuComponent } from './menu/menu.component';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { DishdetailComponent } from './dishdetail/dishdetail.component'; 
 import { HeaderComponent } from './header/header.component'
 import { FooterComponent } from './footer/footer.component';
@@ -35,14 +37,15 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 
 //Import services
-import {DishService} from './services/dish.service';
-import {PromotionService} from './services/promotion.service';
-import {LeaderService} from './services/leader.service';
+import { DishService } from './services/dish.service';
+import { PromotionService } from './services/promotion.service';
+import { LeaderService } from './services/leader.service';
 
 //Import module
-import {AppRoutingModule} from './app-routing/app-routing.module';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 
-
+//Import URL
+import { baseURL } from './shared/baseurl';
 
 @NgModule({
   //Import the components created
@@ -77,13 +80,16 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule,
+    HttpModule
   ],
   //Import the services created
   providers: [
     DishService,
     PromotionService,
-    LeaderService
+    LeaderService,
+    {provide: 'BaseURL', useValue: baseURL}
   ],
   entryComponents:[
     LoginComponent

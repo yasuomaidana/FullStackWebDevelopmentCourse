@@ -1,7 +1,7 @@
 // We use Input when we pass information through methods that 
 //are not links
 //import { Component, OnInit, Input } from '@angular/core';
-import { Component, OnInit, ViewChild} from '@angular/core'; //viewchild allow us to see components
+import { Component, OnInit, ViewChild, Inject } from '@angular/core'; //viewchild allow us to see components
 //To use information using url parameters
 import {Params,ActivatedRoute} from '@angular/router';
 //Switch map allow us to use observables elements
@@ -51,7 +51,8 @@ export class DishdetailComponent implements OnInit
     constructor(private dishService:DishService,
       private location:Location,
       private route:ActivatedRoute,
-      private fb:FormBuilder) {
+      private fb:FormBuilder,
+      @Inject('BaseURL') private BaseURL) {
         this.createForm();
        }
 

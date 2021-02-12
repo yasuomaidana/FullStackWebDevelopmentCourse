@@ -29,7 +29,8 @@ export class DishdetailComponent implements OnInit
     dishIds:string[];
     prev:string;
     next:string;
-
+    errMess: string;
+    
     formErrors = {
       'name': '',
       'comment': ''
@@ -65,7 +66,7 @@ export class DishdetailComponent implements OnInit
         this.dishService.getDish(params['id']))).
         subscribe((dish=>{
           this.dish=dish;
-          this.setPrevNext(dish.id);}));
+          this.setPrevNext(dish.id);}),errmss => this.errMess=<any>errmss);
         
       this.dishService.getDishID().subscribe((dishIds)=>this.dishIds=dishIds);
     }

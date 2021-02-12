@@ -21,7 +21,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 
 import 'hammerjs';
 
@@ -40,6 +39,7 @@ import { LoginComponent } from './login/login.component';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 //Import module
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -81,15 +81,15 @@ import { baseURL } from './shared/baseurl';
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatSliderModule,
-    HttpClientModule,
-    HttpModule
+    HttpClientModule
   ],
   //Import the services created
   providers: [
     DishService,
     PromotionService,
     LeaderService,
-    {provide: 'BaseURL', useValue: baseURL}
+    {provide: 'BaseURL', useValue: baseURL},
+    ProcessHTTPMsgService
   ],
   entryComponents:[
     LoginComponent

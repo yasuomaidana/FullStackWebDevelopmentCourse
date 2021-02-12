@@ -16,18 +16,17 @@ export class MenuComponent implements OnInit {
   //also exports dishes that is an array of Dish class
   //we also defined the array
   dishes: Dish[];
-  selectedDish: Dish;
+  errMess: string;
   //Create an object dishService of class DishService
   constructor(private dishService:DishService,
     @Inject('BaseURL') private BaseURL) { }
   //
   ngOnInit() {
-    this.dishService.getDishes().subscribe((dishes)=> this.dishes=dishes);
+    this.dishService.getDishes().
+    subscribe((dishes)=> this.dishes=dishes,
+    errmss => this.errMess=<any>errmss);
   }
 
-  onSelected(dish:Dish)
-  {
-    this.selectedDish=dish;
-  }
+  
 
 }

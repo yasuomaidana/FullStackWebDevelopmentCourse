@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 
 //Element added
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -26,7 +27,6 @@ import 'hammerjs';
 
 //Import components
 import { MenuComponent } from './menu/menu.component';
-import { MatListModule } from '@angular/material/list';
 import { DishdetailComponent } from './dishdetail/dishdetail.component'; 
 import { HeaderComponent } from './header/header.component'
 import { FooterComponent } from './footer/footer.component';
@@ -41,11 +41,14 @@ import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
-//Import module
+//Import module this was created by us
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
 //Import URL
 import { baseURL } from './shared/baseurl';
+
+//import directive
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   //Import the components created
@@ -58,7 +61,8 @@ import { baseURL } from './shared/baseurl';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    HighlightDirective
   ],
   //Imports again the elements and modules imported, but now they are included in NgModule(s)
   imports: [

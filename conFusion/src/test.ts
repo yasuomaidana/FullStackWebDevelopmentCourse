@@ -15,6 +15,10 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 // Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
+//This line works for every component
+//const context = require.context('./', true, /\.spec\.ts$/);
+
+//This only works for menu component
+const context = require.context('./', true, /menu\.component\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);

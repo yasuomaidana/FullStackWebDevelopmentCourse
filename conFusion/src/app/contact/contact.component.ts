@@ -2,7 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Feedback,ContactType } from '../shared/feedback';
 
-import { flyInOut } from '../animations/app.animation';
+import { FeedbackserviceService } from '../services/feedbackservice.service';
+
+import { flyInOut,visibility } from '../animations/app.animation';
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -11,7 +14,7 @@ import { flyInOut } from '../animations/app.animation';
     '[@flyInOut]':'true',
     'style':'display:block;'
   },
-  animations:[flyInOut()]
+  animations:[flyInOut(),visibility()]
 })
 export class ContactComponent implements OnInit {
   
@@ -47,9 +50,14 @@ export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback:Feedback;
+  rFeed:Feedback;
   contactType = ContactType;
-
-  constructor( private fb:FormBuilder) {
+  showF='shown';
+  showL='hidden';
+  showRF='hidden';
+  errMSG:string;
+  constructor( private fb:FormBuilder,
+    private feedServ:FeedbackserviceService) {
     this.createForm();
    }
 
@@ -89,9 +97,19 @@ export class ContactComponent implements OnInit {
       }
     }
   }
+  clearV(){
+    setTimeout(()=>{this.rFeed=null;
+      this.errMSG=null;
+      this.showF='shown';
+      this.showL='hidden';
+      this.showRF='hidden';},5000)
+    
+  }
   onSubmit(){
     this.feedback=this.feedbackForm.value;
-    console.log(this.feedback);
+    
+    this.showF='hidden';
+    this.showL='shown';
     this.feedbackForm.reset({
       firstname:'',
       lastname:'',
@@ -102,5 +120,18 @@ export class ContactComponent implements OnInit {
       message:''}
     );
     this.feedbackFormDirective.resetForm();
+    
+    this.feedServ.writeFeedback(this.feedback).
+    subscribe( rfeed=>{
+      this.showL='hidden';
+      this.showRF='shown';
+      this.feedback=rfeed;
+      this.rFeed=rfeed;
+      this.clearV();
+    },
+      err=> {
+        this.errMSG=err;
+        this.clearV();
+      });
   }
 }

@@ -36,9 +36,8 @@
     </div>
   </div>
 
-  <div fxFlex fxFlexOffset="20px" class="form-size">
+  <div fxFlex fxFlexOffset="20px" class="form-size" [@visibility]="showF" [hidden]="showF=='hidden'">
     <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
     <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
       <p>
@@ -82,5 +81,26 @@
       class="background-primary text-floral-white"
       [disabled]="!feedbackForm.valid">Submit</button>
     </form>
+    
+  </div>
+  <div [@visibility]="showL" *ngIf="!rFeed && !errMSG">
+    <h4>Submitting Form</h4>
+    <mat-spinner></mat-spinner>
+  </div>
+  <div div fxFlex fxFlexOffset="20px" [@visibility]="showRF" *ngIf="rFeed && !errMSG" [hidden]="showRF=='hidden'">
+    <h4>Your submition</h4>
+    <p>First name: {{rFeed.firstname}}</p>
+    <p>Last name: {{rFeed.lastname}}</p>
+    <p>Tel. number: {{rFeed.telnum}}</p>
+    <p>Email: {{rFeed.email}}</p>
+    <p>Contact You?: {{rFeed.agree}}</p>
+    <p *ngIf="rFeed.agree">
+      How?: {{rFeed.contacttype}}</p>
+    <p>Feedback: {{rFeed.message}}</p>
+  </div>
+  <div *ngIf="errMSG">
+    <h4>Submition error</h4>
+    {{errMSG}}
+    <h4>Try again!</h4>
   </div>
 </div>

@@ -5,7 +5,6 @@ import { Leader } from '../shared/leader';
 import {LeaderService} from '../services/leader.service';
 //import custom animations
 import {flyInOut, expand} from '../animations/app.animation';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-about',
@@ -19,11 +18,14 @@ import { from } from 'rxjs';
 })
 export class AboutComponent implements OnInit {
   leaders:Leader[];
+  leadersErr:string;
   constructor(private leaderService:LeaderService,
     @Inject('BaseURL') private BURL) { }
 
   ngOnInit() {
-    this.leaderService.getLeaders().subscribe((leaders)=>this.leaders=leaders)
+    this.leaderService.getLeaders()
+    .subscribe((leaders)=>this.leaders=leaders,
+    err=>this.leadersErr=err)
   }
 
 }

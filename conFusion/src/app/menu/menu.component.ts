@@ -1,8 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
+
+
 import { LayoutGapDirective } from '@angular/flex-layout';
 import { baseURL } from '../shared/baseurl';
+
 import { flyInOut, expand } from '../animations/app.animation';
 
 @Component({
@@ -31,7 +34,4 @@ export class MenuComponent implements OnInit {
     subscribe((dishes)=> this.dishes=dishes,
     errmss => this.errMess=<any>errmss);
   }
-
-  
-
 }

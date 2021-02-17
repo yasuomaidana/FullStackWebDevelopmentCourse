@@ -40,7 +40,7 @@ import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
-
+import { FeedbackserviceService } from './services/feedbackservice.service';
 //Import module this was created by us
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
@@ -93,7 +93,8 @@ import { HighlightDirective } from './directives/highlight.directive';
     PromotionService,
     LeaderService,
     {provide: 'BaseURL', useValue: baseURL},
-    ProcessHTTPMsgService
+    ProcessHTTPMsgService,
+    FeedbackserviceService
   ],
   entryComponents:[
     LoginComponent

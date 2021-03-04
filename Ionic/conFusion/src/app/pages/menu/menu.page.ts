@@ -1,10 +1,10 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { Routes,Router, NavigationExtras } from '@angular/router';
-import { DishdetailPage } from "./dishdetail/dishdetail.page"
+import { Component, OnInit, Inject } from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
+//import { DishdetailPage } from "./dishdetail/dishdetail.page";
 
 import { Dish } from "../../shared/dish";
 import { DishService } from "../../services/dish.service"
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +15,6 @@ export class MenuPage implements OnInit {
   //rootPage= DishdetailPage;
   dishes: Dish[];
   dishErr:string;
-  @ViewChild('myNav') nav: NavController
   constructor( private dishService:DishService,
     @Inject("BaseURL") private BaseURL,
     private router:Router) { }

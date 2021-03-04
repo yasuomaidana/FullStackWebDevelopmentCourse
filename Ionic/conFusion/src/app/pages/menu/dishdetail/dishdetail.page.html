@@ -19,20 +19,22 @@
       {{dish.description}}
     </p>
   </ion-card-content>
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small >
-        <ion-icon name="star"></ion-icon>
-        <div>{{ avgstars }} stars</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>{{ numcomments }} Comments</div>
-      </button>
-    </ion-col>
-  </ion-row>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button icon-left fill="clear" small >
+          <ion-icon name="star"></ion-icon>
+          <div>&nbsp;{{ avgstars }} stars</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button icon-left fill="clear" small >
+          <ion-icon name="chatbox-ellipses"></ion-icon>
+          <div >&nbsp;{{ numcomments }} Comments</div>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-card>
 <div [hidden]="dish || errMess">
   <ion-spinner></ion-spinner>
@@ -48,11 +50,13 @@
     Comments
   </ion-list-header>
   <ion-item *ngFor="let comment of dish.comments" text-wrap>
-    <h4> {{comment.comment}} </h4>
-    <p> {{comment.rating}} Stars</p>
-    <p>
-      <span> -- {{comment.author}} {{comment.date | date }} </span>
-    </p>
+    <ion-label>
+      <h4> {{comment.comment}} </h4>
+      <p> {{comment.rating}} Stars</p>
+      <p>
+        <span> -- {{comment.author}} {{comment.date | date }} </span>
+      </p>
+    </ion-label>
   </ion-item>
 </ion-list>
 

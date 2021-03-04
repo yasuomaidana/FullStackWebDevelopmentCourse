@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Dish } from "../../../shared/dish";
-import { Comment } from "../../../shared/comment";
-import { NavParams } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 //https://www.youtube.com/watch?v=XyLcPdv1LKM
 //https://ionicacademy.com/pass-data-angular-router-ionic-4

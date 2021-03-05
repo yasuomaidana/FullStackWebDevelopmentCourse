@@ -13,14 +13,15 @@ import { LeaderService } from './services/leader.service';
 import { PromotionService } from './services/promotion.service';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 import { FavoriteService } from "./services/favorite.service";
-import { baseURL } from './shared/baseurl'
+import { baseURL } from './shared/baseurl';
 
+import { ReservationPageModule } from "./pages/reservation/reservation.module";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-    HttpClientModule],
+    HttpClientModule, ReservationPageModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     DishService, LeaderService,

@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
+import { ReservationPage } from './pages/reservation/reservation.page';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -15,5 +19,13 @@ export class AppComponent {
     //{ title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  
+  constructor(private modalCrl:ModalController) {}
+
+  async openModal(){
+    const modal = await this.modalCrl.create({
+      component: ReservationPage
+    });
+    return await modal.present();
+  }
 }

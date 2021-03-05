@@ -13,7 +13,7 @@
 
 <ion-content class="card-background-image">
   <div *ngIf="dishes">
-    <ion-card *ngFor="let dish of dishes" (click)="dishSelected(dish)">
+    <ion-card *ngFor="let dish of dishes" (click)="dishSelected(dish)" (pan)="addFavo(dish)">
       <img src="{{BaseURL+dish.image}}" style="width:100%">
       <div class="card-title">{{dish.name}}</div>
       <div class="card-subtitle">{{dish.description}}</div>

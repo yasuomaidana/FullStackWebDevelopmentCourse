@@ -10,6 +10,7 @@ export class AppComponent {
     { title: 'About Us', url: '/about', icon: 'information-circle' },
     { title: 'Menu', url: '/menu', icon: 'fast-food' },
     { title: 'Contact us', url: '/contact', icon: 'call' },
+    { title: 'My Favorites', url: '/favorites', icon: 'heart-circle' }
     //{ title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     //{ title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];

@@ -4,7 +4,7 @@ import { Router, NavigationExtras } from '@angular/router';
 
 import { Dish } from "../../shared/dish";
 import { DishService } from "../../services/dish.service"
-import { NavController } from '@ionic/angular';
+import { FavoriteService } from "../../services/favorite.service"
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +17,8 @@ export class MenuPage implements OnInit {
   dishErr:string;
   constructor( private dishService:DishService,
     @Inject("BaseURL") private BaseURL,
-    private router:Router) { }
+    private router:Router,
+    private favoriteService:FavoriteService) { }
 
   ngOnInit() {
     this.dishService.getDishes().subscribe(dishes => this.dishes=dishes,err=>this.dishErr=err);
@@ -37,5 +38,8 @@ export class MenuPage implements OnInit {
     }
     this.router.navigate(['/menu/dishdetail'],navigationExtras)
     //this.navCtrl.navigateForward("dishdetail",dish)
+  }
+  addFavo(dish:Dish){
+    this.favoriteService.addFavorite(dish.id);
   }
 }

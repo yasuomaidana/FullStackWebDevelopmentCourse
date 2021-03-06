@@ -3,6 +3,7 @@ import { Dish } from "../../../shared/dish";
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FavoriteService } from "../../../services/favorite.service"
+import { ToastController } from '@ionic/angular';
 //https://www.youtube.com/watch?v=XyLcPdv1LKM
 //https://ionicacademy.com/pass-data-angular-router-ionic-4
 
@@ -20,7 +21,8 @@ export class DishdetailPage implements OnInit {
 
   constructor( @Inject("BaseURL") private BaseURL,
     private route:ActivatedRoute, private router:Router,
-    private favoriteService:FavoriteService) {
+    private favoriteService:FavoriteService,
+    private toastCtrl:ToastController) {
       this.route.queryParams.subscribe(params =>{
         ////This method pass the infor trhough url
         /*if (params && params.dish){
@@ -57,6 +59,13 @@ export class DishdetailPage implements OnInit {
   addToFavorite(){
     console.log("adding to favorites",this.dish.id);
     this.favorite=this.favoriteService.addFavorite(this.dish.id);
+    this.presentToast();
   }
-
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Added to favorites',
+      duration: 3000,
+      position: 'middle'
+    });
+    toast.present();}
 }

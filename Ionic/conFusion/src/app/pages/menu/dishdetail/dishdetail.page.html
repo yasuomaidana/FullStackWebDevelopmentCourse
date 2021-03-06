@@ -4,6 +4,11 @@
       <ion-back-button routerLink="/menu"></ion-back-button>
     </ion-buttons>
     <ion-title>Dish details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button filled="clear" (click)="presentActionSheet()">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

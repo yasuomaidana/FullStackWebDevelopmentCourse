@@ -3,7 +3,8 @@ import { Dish } from "../../../shared/dish";
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FavoriteService } from "../../../services/favorite.service"
-import { ToastController } from '@ionic/angular';
+import { ActionSheetController, ModalController, ToastController } from '@ionic/angular';
+import { CommentPage } from './comment/comment.page';
 //https://www.youtube.com/watch?v=XyLcPdv1LKM
 //https://ionicacademy.com/pass-data-angular-router-ionic-4
 
@@ -22,7 +23,9 @@ export class DishdetailPage implements OnInit {
   constructor( @Inject("BaseURL") private BaseURL,
     private route:ActivatedRoute, private router:Router,
     private favoriteService:FavoriteService,
-    private toastCtrl:ToastController) {
+    private toastCtrl:ToastController,
+    public actionSheetController: ActionSheetController,
+    public modalCtrl:ModalController) {
       this.route.queryParams.subscribe(params =>{
         ////This method pass the infor trhough url
         /*if (params && params.dish){
@@ -54,7 +57,7 @@ export class DishdetailPage implements OnInit {
     }
 
   ngOnInit() {
-
+    
   }
   addToFavorite(){
     console.log("adding to favorites",this.dish.id);
@@ -68,4 +71,42 @@ export class DishdetailPage implements OnInit {
       position: 'middle'
     });
     toast.present();}
+
+    async presentActionSheet() {
+      const actionSheet = await this.actionSheetController.create({
+        header: 'Select Actions',
+        buttons: [{
+          text: 'Add to Favorites',
+          handler: () => {
+            this.addToFavorite();
+          }
+        }, {
+          text: 'Add comment',
+          handler: () => {
+            this.presentModal();
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
+      });
+      await actionSheet.present();
+    }
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: CommentPage,
+    });
+    await modal.present();
+    
+    await modal.onDidDismiss().then(a=>{
+      if(a.data)
+      {
+        this.dish.comments.push(a.data)}}
+      );
+
+  }
+
 }

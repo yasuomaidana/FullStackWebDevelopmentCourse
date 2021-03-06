@@ -16,12 +16,13 @@ import { FavoriteService } from "./services/favorite.service";
 import { baseURL } from './shared/baseurl';
 
 import { ReservationPageModule } from "./pages/reservation/reservation.module";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-    HttpClientModule, ReservationPageModule],
+    HttpClientModule, ReservationPageModule,FormsModule,ReactiveFormsModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     DishService, LeaderService,

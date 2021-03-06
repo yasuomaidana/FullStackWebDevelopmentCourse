@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 //Modal Tutorialhttps://www.youtube.com/watch?v=GWyNQYNg550&t=79s
-import { Validator, FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-reservation',
@@ -9,26 +9,27 @@ import { Validator, FormGroup, FormBuilder, Validators } from "@angular/forms";
   styleUrls: ['./reservation.page.scss'],
 })
 export class ReservationPage implements OnInit {
-  //reservation:FormGroup;
+  reservation:FormGroup;
 
   constructor(private modalCtrl:ModalController,
-    //private fromBuilder:FormBuilder
+    private formBuilder:FormBuilder
     ) {
-      /*this.reservation=this.fromBuilder.group({
-        guest:3,
-        smokin:false,
-        dateTime: ["",Validators.required]
-      });*/
+      this.reservation=this.formBuilder.group({
+        guests:3,
+        smoking:false,
+        dateTime: ["",Validators.required],
+      });
      }
 
   ngOnInit() {
   }
-  /*
+  
   closeModal(){
     this.modalCtrl.dismiss();
   }
+  
   onSubmit(){
     console.log(this.reservation.value);
     this.modalCtrl.dismiss();
-  }*/
+  }
 }

@@ -11,29 +11,29 @@
 </ion-header>
 
 <ion-content>
-  <!-- 
-  <form [FormGroup]="reservation" (ngSubmit)="onSubmit()">
+  
+  <form [formGroup]="reservation" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label>No. of Guests</ion-label>
-      <ion-select formControlName="guests">
-        <ion-option value=1>1</ion-option>
-        <ion-option value=2>2</ion-option>
-        <ion-option value=3>3</ion-option>
-        <ion-option value=4>4</ion-option>
-        <ion-option value=5>5</ion-option>
-        <ion-option value=6>6</ion-option>
+      <ion-select placeholder="3" interface="popover"
+      formControlName="guests">
+        <ion-select-option value=1>1</ion-select-option>
+        <ion-select-option value=2>2</ion-select-option>
+        <ion-select-option value=3>3</ion-select-option>
+        <ion-select-option value=4>4</ion-select-option>
+        <ion-select-option value=5>5</ion-select-option>
+        <ion-select-option value=6>6</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Smoking?</ion-label>
-      <ion-toggle formControlName="smoking" checked="true"></ion-toggle>
+      <ion-toggle formControlName="smoking" checked="false"></ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-datetime displayFormat="MMM DD, YYYY hh:mm A" 
-      pickerFormat="MMM DD, YYYY hh:mm A"
-      formControlName="dateTime"></ion-datetime>
+      <ion-label>Date and Time</ion-label>
+      <ion-datetime displayFormat="MMM DD, YYYY hh:mm A" pickerFormat="MMM DD, YYYY hh:mm A" formControlName="dateTime"></ion-datetime>
     </ion-item>
-    <ion-button type="submit">Reserve</ion-button>
+    <ion-button type="submit" [disabled]="!reservation.valid">Reserve</ion-button>
   </form>
-  -->
+  
 </ion-content>

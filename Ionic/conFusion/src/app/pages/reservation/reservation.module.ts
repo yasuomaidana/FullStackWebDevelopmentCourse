@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ReservationPageRoutingModule } from './reservation-routing.module';
+//import { ReservationPageRoutingModule } from './reservation-routing.module';
 
 import { ReservationPage } from './reservation.page';
 

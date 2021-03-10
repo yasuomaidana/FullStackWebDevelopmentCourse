@@ -14,15 +14,27 @@ import { PromotionService } from './services/promotion.service';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 import { FavoriteService } from "./services/favorite.service";
 import { baseURL } from './shared/baseurl';
-
+//Modals pages
+import { LoginPageModule } from './pages/login/login.module';
 import { ReservationPageModule } from "./pages/reservation/reservation.module";
+//Forms stuffs
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//Storage stuffs
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-    HttpClientModule, ReservationPageModule,FormsModule,ReactiveFormsModule],
+    HttpClientModule, 
+    //modal pages
+    ReservationPageModule,LoginPageModule,
+    //forms stuffss
+    FormsModule,ReactiveFormsModule,
+    IonicStorageModule.forRoot()
+  ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     DishService, LeaderService,

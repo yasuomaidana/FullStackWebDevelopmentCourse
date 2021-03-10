@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { LoginPage } from './pages/login/login.page';
 
 import { ReservationPage } from './pages/reservation/reservation.page';
 
@@ -20,11 +21,18 @@ export class AppComponent {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   
-  constructor(private modalCrl:ModalController) {}
+  constructor(public modalCrl:ModalController) {}
 
   async openModal(){
     const modal = await this.modalCrl.create({
       component: ReservationPage
+    });
+    return await modal.present();
+  }
+
+  async openLogin(){
+    const modal = await this.modalCrl.create({
+      component: LoginPage
     });
     return await modal.present();
   }

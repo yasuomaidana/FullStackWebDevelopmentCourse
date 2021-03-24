@@ -42,22 +42,18 @@ export class FavoritesPage implements OnInit {
       duration: 3000,
     });
     toast.present();
-    toast.onDidDismiss().then(a=>{
-      if(a){item.close();}
-      });
+    toast.onDidDismiss().then(()=>{item.close();});
   }
   async presentLoading(item:IonItemSliding,id:number) {
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
-      duration: 10000
+      duration: 3000
     });
     await loading.present();
     //loading.dismiss()
-    loading.onDidDismiss().then(a=>{
-      if(a){
+    loading.onDidDismiss().then(()=>{
         this.presentToast(item);
-      }
-    });
+      });
   }
 
   async presentAlertConfirm(item:IonItemSliding,id:number) {
@@ -71,26 +67,22 @@ export class FavoritesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            
-            console.log("canceled",this.del);
+            this.del=false;
           }
         }, {
           text: 'Yes',
           handler: () => {
             this.del=true;
-            console.log('Confirm Okay',this.del);
           }
         }
       ]
     });
     alert.present();
-    alert.onDidDismiss().then(a=>{
-      if(a){
-        if(this.del){
-          this.delConf(item,id);
-        }
-        else{item.close();}
+    alert.onDidDismiss().then(()=>{
+      if(this.del){
+        this.delConf(item,id);
       }
+      else{item.close();}
     });
   }
 

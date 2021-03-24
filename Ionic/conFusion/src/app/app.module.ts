@@ -23,6 +23,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Storage stuffs
 import { IonicStorageModule } from '@ionic/storage';
 
+//Notification stuffs
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -39,6 +42,7 @@ import { IonicStorageModule } from '@ionic/storage';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     DishService, LeaderService,
     PromotionService, ProcessHttpmsgService, FavoriteService,
+    LocalNotifications,
     { provide:'BaseURL', useValue:baseURL}
   ],
   bootstrap: [AppComponent],

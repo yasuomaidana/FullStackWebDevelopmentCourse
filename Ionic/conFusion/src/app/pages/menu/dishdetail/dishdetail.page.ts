@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FavoriteService } from "../../../services/favorite.service"
 import { ActionSheetController, ModalController, ToastController } from '@ionic/angular';
 import { CommentPage } from './comment/comment.page';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 //https://www.youtube.com/watch?v=XyLcPdv1LKM
 //https://ionicacademy.com/pass-data-angular-router-ionic-4
 
@@ -25,7 +26,8 @@ export class DishdetailPage implements OnInit {
     private favoriteService:FavoriteService,
     private toastCtrl:ToastController,
     public actionSheetController: ActionSheetController,
-    public modalCtrl:ModalController) {
+    public modalCtrl:ModalController,
+    private localNotifications:LocalNotifications) {
       this.route.queryParams.subscribe(params =>{
         ////This method pass the infor trhough url
         /*if (params && params.dish){
@@ -60,7 +62,7 @@ export class DishdetailPage implements OnInit {
     
   }
   addToFavorite(){
-    console.log("adding to favorites",this.dish.id);
+    //console.log("adding to favorites",this.dish.id);
     this.favorite=this.favoriteService.addFavorite(this.dish.id);
     this.presentToast();
   }
@@ -70,31 +72,36 @@ export class DishdetailPage implements OnInit {
       duration: 3000,
       position: 'middle'
     });
-    toast.present();}
-
-    async presentActionSheet() {
-      const actionSheet = await this.actionSheetController.create({
-        header: 'Select Actions',
-        buttons: [{
-          text: 'Add to Favorites',
-          handler: () => {
-            this.addToFavorite();
-          }
-        }, {
-          text: 'Add comment',
-          handler: () => {
-            this.presentModal();
-          }
-        }, {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }]
+    toast.present().then(()=>{
+      this.localNotifications.schedule({
+        id: this.dish.id,
+        text: 'Favorite dish '+this.dish.id+' added.'
       });
-      await actionSheet.present();
-    }
+    });}
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Select Actions',
+      buttons: [{
+        text: 'Add to Favorites',
+        handler: () => {
+          this.addToFavorite();
+        }
+      }, {
+        text: 'Add comment',
+        handler: () => {
+          this.presentModal();
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
   async presentModal() {
     const modal = await this.modalCtrl.create({
       component: CommentPage,

@@ -25,6 +25,9 @@ import { IonicStorageModule } from '@ionic/storage';
 
 //Notification stuffs
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+//Social media
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,7 +45,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     DishService, LeaderService,
     PromotionService, ProcessHttpmsgService, FavoriteService,
-    LocalNotifications,
+    LocalNotifications,EmailComposer, SocialSharing,
     { provide:'BaseURL', useValue:baseURL}
   ],
   bootstrap: [AppComponent],

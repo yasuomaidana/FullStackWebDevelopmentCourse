@@ -6,6 +6,8 @@ import { FavoriteService } from "../../../services/favorite.service"
 import { ActionSheetController, ModalController, ToastController } from '@ionic/angular';
 import { CommentPage } from './comment/comment.page';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
 //https://www.youtube.com/watch?v=XyLcPdv1LKM
 //https://ionicacademy.com/pass-data-angular-router-ionic-4
 
@@ -27,7 +29,8 @@ export class DishdetailPage implements OnInit {
     private toastCtrl:ToastController,
     public actionSheetController: ActionSheetController,
     public modalCtrl:ModalController,
-    private localNotifications:LocalNotifications) {
+    private localNotifications:LocalNotifications,
+    private socialSharing:SocialSharing) {
       this.route.queryParams.subscribe(params =>{
         ////This method pass the infor trhough url
         /*if (params && params.dish){
@@ -55,7 +58,7 @@ export class DishdetailPage implements OnInit {
           this.dish.comments.forEach(comment => total += comment.rating );
           this.avgstars = (total/this.numcomments).toFixed(2);
         }
-      })
+      });
     }
 
   ngOnInit() {
@@ -115,5 +118,35 @@ export class DishdetailPage implements OnInit {
       );
 
   }
+  async shareSocial(){
+    let mss = this.dish.name + ' --- ' + this.dish.description;
+    let img = this.BaseURL + this.dish.image;
 
+    const actionSheet = await this.actionSheetController.create({
+      header:"",
+      buttons:[{
+        text:"Share via Facebook",
+        handler:()=>{
+          this.socialSharing.shareViaFacebook(mss,img,"")
+          .then(()=>console.log("Posted correctly"))
+          .catch(()=>console.log("Error happened"));
+        }
+      },{
+        text:"Share via Twitter",
+        handler:()=>{
+          this.socialSharing.shareViaTwitter(mss+"Twitter",img,"")
+          .then(()=>console.log("Posted correctly"))
+          .catch(()=>console.log("Error happened"));
+        }
+      },{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }
+    ]
+    });
+    await actionSheet.present()
+  }
 }

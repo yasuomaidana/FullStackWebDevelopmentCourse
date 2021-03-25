@@ -31,8 +31,11 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 //Camera
 import { Camera } from '@ionic-native/camera/ngx';
 import { RegisterPageModule } from './pages/login/register/register.module';
-
+// Used to render some files
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+//Network
+import { Network } from '@ionic-native/network/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -50,6 +53,7 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
     DishService, LeaderService,
     PromotionService, ProcessHttpmsgService, FavoriteService,
     LocalNotifications,EmailComposer, SocialSharing,Camera,WebView,
+    Network,
     { provide:'BaseURL', useValue:baseURL}
   ],
   bootstrap: [AppComponent],

@@ -35,6 +35,8 @@ import { RegisterPageModule } from './pages/login/register/register.module';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 //Network
 import { Network } from '@ionic-native/network/ngx';
+//Make Call
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,7 +55,7 @@ import { Network } from '@ionic-native/network/ngx';
     DishService, LeaderService,
     PromotionService, ProcessHttpmsgService, FavoriteService,
     LocalNotifications,EmailComposer, SocialSharing,Camera,WebView,
-    Network,
+    Network,CallNumber,
     { provide:'BaseURL', useValue:baseURL}
   ],
   bootstrap: [AppComponent],

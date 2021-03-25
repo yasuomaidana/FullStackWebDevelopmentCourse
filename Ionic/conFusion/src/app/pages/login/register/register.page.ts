@@ -53,21 +53,31 @@ export class RegisterPage implements OnInit {
       saveToPhotoAlbum:true
     };
     this.camera.getPicture(options).then((imageData)=>{
-      //const tempFilename = imageData.substr(imageData.lastIndexOf('/') + 1);
-      //const tempBaseFilesystemPath = imageData.substr(0, imageData.lastIndexOf('/') + 1);
       this.image=this.webview.convertFileSrc(imageData);
-      //this.image= imageData;
-      
     }
     ,(err)=>{
       console.log("Camera error");
       alert("Failed because"+err)});
   }
   onSubmit(){
-    
     this.modalCtrl.dismiss();
     console.log(this.registerForm.value);
-    
   }
-  show(){console.log(this.registerForm.value);}
+  getPictureLib(){
+    const options:CameraOptions={
+      quality:100,
+      targetHeight:100,
+      targetWidth:100,
+      destinationType:this.camera.DestinationType.FILE_URI,
+      encodingType:this.camera.EncodingType.PNG,
+      mediaType:this.camera.MediaType.PICTURE,
+      sourceType:this.camera.PictureSourceType.PHOTOLIBRARY,
+    };
+    this.camera.getPicture(options).then((imageData)=>{
+      this.image=this.webview.convertFileSrc(imageData);
+    }
+    ,(err)=>{
+      console.log("Camera error");
+      alert("Failed because"+err)});
+  }
 }

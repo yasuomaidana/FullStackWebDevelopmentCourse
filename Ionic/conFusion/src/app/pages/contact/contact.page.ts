@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
-
+import { CallNumber } from '@ionic-native/call-number/ngx';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.page.html',
@@ -8,7 +8,8 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 })
 export class ContactPage implements OnInit {
 
-  constructor(private emailComposer:EmailComposer) { }
+  constructor(private emailComposer:EmailComposer,
+    private callNumber:CallNumber) { }
 
   ngOnInit() {
   }
@@ -22,5 +23,8 @@ export class ContactPage implements OnInit {
 
     // Send a text message using default options
     this.emailComposer.open(email);
+  }
+  makeCall(){
+    this.callNumber.callNumber("123456789",false);
   }
 }

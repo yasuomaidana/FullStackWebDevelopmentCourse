@@ -14,7 +14,16 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button small (click)="getPicture()">Take Picture</ion-button>
+          <ion-button small (click)="getPicture()">
+            <ion-icon name="camera"></ion-icon>
+            &nbsp;Take Picture
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button small (click)="getPictureLib()">
+            <ion-icon name="image"></ion-icon>
+            &nbsp;Select Picture
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
@@ -24,4 +25,6 @@
     </ion-item>
     <ion-button type="submit" [disabled]="!loginForm.valid" color="primary-dark">Login</ion-button>
   </form>
+  <p>Do not have an account? then</p>
+  <ion-button color="primary" (click)="openRegister()">Register</ion-button>
 </ion-content>

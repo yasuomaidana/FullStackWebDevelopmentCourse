@@ -39,13 +39,13 @@
             <p>{{promo.description}}</p>
           </ion-card-content>
         </ion-card>
-        <div [hidden]="promo||promoErr">
+        <div [hidden]="promo||promErr">
           <ion-spinner></ion-spinner>
           <h4>Loading ... Please wait</h4>
         </div>
-        <div *ngIf="promoErr">
+        <div *ngIf="promErr">
           <h2>Error</h2>
-          <h3>{{promoErr}}</h3>
+          <h3>{{promErr}}</h3>
         </div>
       </ion-col>
       <ion-col size="12" size-md="4">

@@ -7,6 +7,10 @@ import { Validators, FormGroup, FormBuilder} from '@angular/forms';
 import { Storage } from '@ionic/storage';
 //User
 import { User } from '../../shared/user';
+
+//Import modal page
+import { RegisterPage } from './register/register.page';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -19,7 +23,7 @@ export class LoginPage implements OnInit {
   constructor(private modalCtrl:ModalController,
     private fb:FormBuilder,
     private storage:Storage) {
-      this.loginForm=fb.group({
+      this.loginForm=this.fb.group({
         username:["",Validators.required],
         password:["",Validators.required],
         remember:true
@@ -51,5 +55,15 @@ export class LoginPage implements OnInit {
     }
     else{this.storage.remove("user");}
     this.modalCtrl.dismiss();
+  }
+  
+  async openRegister(){
+    let modal = await this.modalCtrl.create({component:RegisterPage});
+    modal.onWillDismiss().then(data=>{
+      //alert(data.data)
+      //Here we put the actions when the modal is closed
+    });
+    return await modal.present();
+    
   }
 }

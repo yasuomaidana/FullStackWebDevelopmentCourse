@@ -28,7 +28,11 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 //Social media
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+//Camera
+import { Camera } from '@ionic-native/camera/ngx';
+import { RegisterPageModule } from './pages/login/register/register.module';
 
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -36,7 +40,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     HttpClientModule, 
     //modal pages
-    ReservationPageModule,LoginPageModule,
+    ReservationPageModule,LoginPageModule,RegisterPageModule,
     //forms stuffss
     FormsModule,ReactiveFormsModule,
     IonicStorageModule.forRoot()
@@ -45,7 +49,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     DishService, LeaderService,
     PromotionService, ProcessHttpmsgService, FavoriteService,
-    LocalNotifications,EmailComposer, SocialSharing,
+    LocalNotifications,EmailComposer, SocialSharing,Camera,WebView,
     { provide:'BaseURL', useValue:baseURL}
   ],
   bootstrap: [AppComponent],

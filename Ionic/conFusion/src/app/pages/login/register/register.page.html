@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary-pale">
+    <ion-title>Register</ion-title>
+    <ion-button fill="clear" (click)="dismiss()" color="primary-dark" slot="end">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header color="primary">Your Picture</ion-card-header>
+    <img src="{{image}}" style="width:100%"/>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button small (click)="getPicture()">Take Picture</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input type="text" formControlName="firstname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input type="text" formControlName="lastname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="text" formControlName="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Tel. Number</ion-label>
+      <ion-input type="tel" formControlName="telnum"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" [disabled]="!registerForm.valid" color="primary-dark">Register</ion-button>
+  </form>
+</ion-content>

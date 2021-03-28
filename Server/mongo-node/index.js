@@ -7,19 +7,20 @@ const dbname = "conFusion";
 //Import operations
 const dboperations = require("./operations");
 
-MongoClient.connect(url,(err,client)=>{
-    assert.strictEqual(err,null);
-
+MongoClient.connect(url)
+.then((client)=>{
     console.log("Connected correctly to server");
     const db = client.db(dbname);
     document = {name:"Vadonut",description:"Test"};
     collection = "dishes";
-
-    dboperations.insertDocument(db,document,collection,(res)=>{
-         console.log("Insert document\n",res.ops);
-         dboperations.findDocuments(db,collection,(docs)=>{
-            console.log("Found documents after insert \n",docs);});
-        dboperations.updateDocument(
+    dboperations.insertDocument(db,document,collection)
+    .then((res)=>{
+        console.log("Insert document\n",res.ops);
+        return dboperations.findDocuments(db,collection);
+    })
+    .then((docs)=>{
+        console.log("Found documents after insert \n",docs);
+        return dboperations.updateDocument(
             //Databes
             db,
             //Filter parameter
@@ -27,18 +28,18 @@ MongoClient.connect(url,(err,client)=>{
             //What should be updated
             {description:"Updated test"},
             //Where to look for this variable
-            collection,
-            //Answer
-            (res)=>{
-                console.log("Updated document \n",res.result);
-                dboperations.findDocuments(db,collection,(docs)=>{
-                    console.log("Found documents",docs);
-                    db.dropCollection(collection,(res)=>{
-                        console.log("Dropped colleciton: ",res)
-                        client.close();
-                    });
-                });    
-            });
-    });
-}); 
+            collection);
+        })
+    .then((res)=>{//Answer    
+        console.log("Updated document \n",res.result);    
+        return dboperations.findDocuments(db,collection)})
+    .then((docs)=>{    
+        console.log("Found documents",docs);
+        return db.dropCollection(collection)})
+    .then((res)=>{
+        console.log("Dropped colleciton: ",res)                
+        client.close();})
+    .catch(err=>{console.log(err)});
+})
+.catch(err=>{console.log(err)}); 
  

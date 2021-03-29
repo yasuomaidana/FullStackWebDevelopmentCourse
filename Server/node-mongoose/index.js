@@ -7,18 +7,17 @@ const connect = mongoose.connect(url);
 
 connect.then((db)=>{
     console.log("Connected correctly");
-    var newDish = Dishes({
+    Dishes.create({
         name:"Uthapizza",
         description:"Test"
-    });
-    newDish.save()
+    })
     .then(dish=>{
         console.log("Saved dish \n",dish);
         return Dishes.find({}).exec();
     })
     .then(dishes=>{
         console.log("Stored dishes \n",dishes);
-        return Dishes.remove({});
+        return Dishes.deleteMany({});
     })
     .then(()=>{
         return mongoose.connection.close();

@@ -13,10 +13,25 @@ connect.then((db)=>{
     })
     .then(dish=>{
         console.log("Saved dish \n",dish);
-        return Dishes.find({}).exec();
+        //return Dishes.deleteMany({});
+        return Dishes.findByIdAndUpdate(dish._id,
+            {$set: {description:"Updated test"}},
+            //It returns the same dish
+            { new: true}  
+            ).exec();
     })
-    .then(dishes=>{
-        console.log("Stored dishes \n",dishes);
+    .then(dish=>{
+        console.log("Stored dishes \n",dish);
+        dish.comments.push({
+            rating:5,
+            comment:"I\'m getting a sinking feeling!",
+            author:"Yasuo"
+        });
+        return dish.save();
+        
+    })
+    .then(dish=>{
+        console.log("Modified dish comment\n",dish);
         return Dishes.deleteMany({});
     })
     .then(()=>{

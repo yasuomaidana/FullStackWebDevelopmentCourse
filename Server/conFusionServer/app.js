@@ -1,3 +1,6 @@
+//We created this structure using express-generator
+//then we run in command console express conFusion
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,6 +12,21 @@ var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishes/dishRouter');
 var promoRouter = require('./routes/promotions/promotionsRouter');
 var leaderRouter = require('./routes/leaders/leaderRouter');
+
+//Adds mongoose stuffs
+const mongoose = require("mongoose");
+
+//Import models
+const Dishes = require("./models/dishes");
+
+//Url Stuffs
+const url = "mongodb://localhost:27017/conFusion";
+
+const connect = mongoose.connect(url);
+
+connect.then(db=>{
+  console.log("Connected correctly to server"); 
+}, err=>{ console.log("Error");});
 
 var app = express();
 

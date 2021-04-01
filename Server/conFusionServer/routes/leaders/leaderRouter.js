@@ -7,24 +7,40 @@ const leaderIdRoutes = require('./leaederId')
 const leaderRouter = express.Router();
 
 leaderRouter.get(bodyParser.json());
-
-leaderRouter.route('/').all((req,res,next)=>{
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    next();
-})
+const Leaders = require('../../models/leaders')
+leaderRouter.route('/')
 .get((req,res,next) => {
-    res.end('Will send all the leaders to you!');
+    //Obtains Leaders
+    Leaders.find({}).then(promos=>{
+        res.status = 200;
+        res.setHeader('Content-Type','application/json');
+        res.json(promos);
+    },err=>next(err))
+    .catch(err=>next(err));
 })
 .post((req, res, next) => {
-    res.end('Will add the leader: ' + req.body.name + ' with details: ' + req.body.description);
+    //Creates a new promotion
+    Leaders.create(req.body)
+    .then(promos=>{
+        res.status = 200;
+        res.setHeader('Content-Type','application/json');
+        res.json(promos);
+    },err=>next(err))
+    .catch(err=>next(err));
+    
 })
 .put((req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /leaders');
 })
 .delete((req, res, next) => {
-    res.end('Deleting all leaders');
+    Leaders.remove({})
+    .then(promos=>{
+        res.status = 200;
+        res.setHeader('Content-Type','application/json');
+        res.json(promos);
+    },err=>next(err))
+    .catch(err=>next(err));
 });
 
 leaderRouter.use("/",leaderIdRoutes);

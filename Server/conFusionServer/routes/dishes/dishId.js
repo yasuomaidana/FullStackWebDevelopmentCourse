@@ -13,9 +13,9 @@ dishIdRouter.route('/:dishId')
 .get((req , res,next)=>{
     Dishes.findById(req.params.dishId)
     .then(dish=>{
-      console.log("Created dish :",dish);
+      //console.log("Created dish :",dish);
       res.status = 200;
-      res.setHeader("Content-Type",'aplication/json');
+      res.setHeader("Content-Type",'application/json');
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);});
   })
@@ -31,7 +31,7 @@ dishIdRouter.route('/:dishId')
     .then(dish=>{
       console.log("Updated dish :",dish);
       res.status = 200;
-      res.setHeader("Content-Type",'aplication/json');
+      res.setHeader("Content-Type",'application/json');
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);})
   })
@@ -39,7 +39,7 @@ dishIdRouter.route('/:dishId')
   Dishes.findByIdAndRemove(req.params.dishId)
   .then(resp=>{
     res.status = 200;
-    res.setHeader("Content-Type","aplication/json");
+    res.setHeader("Content-Type","application/json");
     res.json(resp); 
   },err=>{next(err);}).catch(err=>{next(err);}) 
 });

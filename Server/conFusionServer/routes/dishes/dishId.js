@@ -1,6 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+//Comment router
+const commentRouter = require("./comments/commentRouter")
+
 const dishIdRouter = express.Router();
  
 const Dishes = require("../../models/dishes");
@@ -19,7 +22,9 @@ dishIdRouter.route('/:dishId')
 .post((req , res,next)=>{
   res.status = 404;
   res.end('Post operation not supported for dishes/'
-  +req.params.dishId);}) 
+  +req.params.dishId);
+  //return next(res);
+}) 
 .put((req,res,next)=>{
   Dishes.findByIdAndUpdate(req.params.dishId,
     { $set:req.body} , {new:true})
@@ -39,4 +44,5 @@ dishIdRouter.route('/:dishId')
   },err=>{next(err);}).catch(err=>{next(err);}) 
 });
 
+dishIdRouter.use("/",commentRouter);
 module.exports = dishIdRouter;

@@ -1,12 +1,15 @@
 //We created this structure using express-generator
 //then we run in command console express conFusion
-
+// For storing and using data we installed 
+// express-session
+// session-file-store
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 //Import routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -36,7 +39,14 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('1234'));
+//app.use(cookieParser('1234'));
+app.use(session({
+  name:"session-id",
+  secret:'1234',
+  saveUninitialized:false,
+  resave:false,
+  store: new FileStore()
+}))
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Autentication stuffs
@@ -61,7 +71,8 @@ function authManual(req,res,next){
   var password = auth[1];
 
   if(username === 'admin' && password === 'password'){
-    res.cookie("user",username,{signed:true});
+    req.session.user = username;
+    //res.cookie("user",username,{signed:true});
     next();
   }
   else{
@@ -70,12 +81,15 @@ function authManual(req,res,next){
 }
 
 function auth(req,res,next){
-  console.log(req.signedCookies);
-  if(!req.signedCookies.user){
+  //console.log(req.signedCookies);
+  console.log(req.session);
+  //if(!req.signedCookies.user){
+    if(!req.session.user){
     return authManual(req,res,next);
   }
   else{
-    if(req.signedCookies.user === "admin"){
+    //if(req.signedCookies.user === "admin"){
+    if(req.session.user === "admin"){
       next();
     }
     else{

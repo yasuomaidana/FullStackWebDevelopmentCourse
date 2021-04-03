@@ -50,34 +50,13 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Autentication stuffs
-function authErr(req,res,next){
+function authErr(req,res,next,num,mss){
   var err = new Error("You are not authenticated");
-  res.setHeader('WWW-Authenticate','Basic');
-  err.status = 401;
-  console.log("Authentification error");
+  err.status = num;
+  console.log(mss,num);
+  res.status(num)
+  .render('error',{message:"Error :"+num,error:err,title:mss});
   next(err);
-}
-function authManual(req,res,next){
-  console.log(req.headers);
-  
-  var authHeaders = req.headers.authorization;
-  if (!authHeaders){
-    authErr(req,res,next);
-    return;
-  }
-  
-  var auth = new Buffer.from(authHeaders.split(' ')[1],'base64').toString().split(':');
-  var username = auth[0];
-  var password = auth[1];
-
-  if(username === 'admin' && password === 'password'){
-    req.session.user = username;
-    //res.cookie("user",username,{signed:true});
-    next();
-  }
-  else{
-    authErr(req,res,next);
-  }
 }
 
 function auth(req,res,next){
@@ -85,23 +64,26 @@ function auth(req,res,next){
   console.log(req.session);
   //if(!req.signedCookies.user){
     if(!req.session.user){
-    return authManual(req,res,next);
+      authErr(req,res,next,403,"Not req.session.user");
   }
   else{
     //if(req.signedCookies.user === "admin"){
-    if(req.session.user === "admin"){
+    if(req.session.user === "authenticated"){
       next();
     }
     else{
-      authErr(req,res,next);
+      authErr(req,res,next,401,"401");
     }
   }
 }
 
-app.use(auth);
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use(auth);
+
+//app.use('/', indexRouter);
+//app.use('/users', usersRouter);
 app.use('/dishes',dishRouter);
 app.use('/promotions',promoRouter);
 app.use('/leaders',leaderRouter);

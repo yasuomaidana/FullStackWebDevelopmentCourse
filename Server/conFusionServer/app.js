@@ -1,8 +1,16 @@
-//We created this structure using express-generator
-//then we run in command console express conFusion
-// For storing and using data we installed 
-// express-session
-// session-file-store
+/*We created this structure using express-generator
+then we run in command console express conFusion
+
+For storing and using data we installed 
+express-session
+session-file-store
+
+For using passport install
+passport
+passport-local
+passport-local-mongoose
+
+*/
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,6 +18,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var FileStore = require('session-file-store')(session);
+var passport = require('passport');
+var authenticate = require('./authenticate');
+
 //Import routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -49,9 +60,13 @@ app.use(session({
 }))
 app.use(express.static(path.join(__dirname, 'public')));
 
+//To use passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Autentication stuffs
-function authErr(req,res,next,num,mss){
-  var err = new Error("You are not authenticated");
+function authErr(res,next,num,mss){
+  var err = new Error(mss);
   err.status = num;
   console.log(mss,num);
   res.status(num)
@@ -60,20 +75,12 @@ function authErr(req,res,next,num,mss){
 }
 
 function auth(req,res,next){
-  //console.log(req.signedCookies);
-  console.log(req.session);
-  //if(!req.signedCookies.user){
-    if(!req.session.user){
-      authErr(req,res,next,403,"Not req.session.user");
+  console.log("Session",req.session);
+    if(!req.user){
+      authErr(res,next,403,"You are not authenticated");
   }
   else{
-    //if(req.signedCookies.user === "admin"){
-    if(req.session.user === "authenticated"){
-      next();
-    }
-    else{
-      authErr(req,res,next,401,"401");
-    }
+    next();
   }
 }
 

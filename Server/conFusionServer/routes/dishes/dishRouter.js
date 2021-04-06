@@ -9,7 +9,10 @@ const dishRouter = express.Router();
 //Import dish model
 const Dishes = require("../../models/dishes");
 
-dishRouter.get(bodyParser.json());
+//
+const authenticate = require('../../authenticate');
+
+dishRouter.get(express.json());
 
 dishRouter.route('/')
 .get((req,res,next) => {
@@ -20,7 +23,7 @@ dishRouter.route('/')
     },err=>{next(err);})
     .catch(err=>{next(err);});
 })
-.post((req, res, next) => {
+.post(authenticate.verifyUser,(req, res, next) => {
     Dishes.create(req.body)
     .then( dish =>{
         console.log("Created dish :",dish);
@@ -30,12 +33,12 @@ dishRouter.route('/')
     },err=>{next(err);})
     .catch(err=>{next(err);});
 })
-.put((req, res, next) => {
+.put(authenticate.verifyUser,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /dishes');
     //return next(res);
 })
-.delete((req, res, next) => {
+.delete(authenticate.verifyUser,(req, res, next) => {
     Dishes.remove({}).then(resp=>{
         res.status = 200;
         res.setHeader("Content-Type","aplication/json");

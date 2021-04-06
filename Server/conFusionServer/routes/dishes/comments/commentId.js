@@ -6,7 +6,8 @@ const commentIdRouter = express.Router();
  
 const Dishes = require("../../../models/dishes");
 
-commentIdRouter.get(bodyParser.json());
+commentIdRouter.get(express.json());
+const authenticate = require('../../../authenticate');
 
 commentIdRouter.route('/:dishId/comments/:commentId')
 .get((req,res,next)=>{
@@ -30,11 +31,11 @@ commentIdRouter.route('/:dishId/comments/:commentId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req,res,next)=>{
+.post(authenticate.verifyUser,(req,res,next)=>{
     res.statusCode = 403;
     res.end("Post operations not supported on dishes/dishID/comments/commentId")
 })
-.put((req,res,next)=>{
+.put(authenticate.verifyUser,(req,res,next)=>{
     Dishes.findById(req.params.dishId)
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {
@@ -63,7 +64,7 @@ commentIdRouter.route('/:dishId/comments/:commentId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete((req,res,next)=>{
+.delete(authenticate.verifyUser,(req,res,next)=>{
     Dishes.findById(req.params.dishId)
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {

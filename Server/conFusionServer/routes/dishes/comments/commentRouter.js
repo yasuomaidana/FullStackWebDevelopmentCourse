@@ -5,8 +5,8 @@ const commentRouter = express.Router();
 const commentIdRouter = require('./commentId');
 const Dishes = require("../../../models/dishes");
 
-
-commentRouter.get(bodyParser.json());
+const authenticate = require('../../../authenticate');
+commentRouter.get(express.json());
 
 commentRouter.route("/:dishId/comments")
 .get((req,res,next) => {
@@ -25,7 +25,7 @@ commentRouter.route("/:dishId/comments")
     }, (err) => next(err))
     .catch((err) => next(err));
 }).
-post((req,res,next)=>{
+post(authenticate.verifyUser,(req,res,next)=>{
     Dishes.findById(req.params.dishId).
     then(dish => {
         if(dish != null){
@@ -44,12 +44,12 @@ post((req,res,next)=>{
     }, err=>next(err)).
     catch(err=>next(err));
 })
-.put((req, res, next) => {
+.put(authenticate.verifyUser,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /dishes/dishId/comments');
     //return next(res);
 })
-.delete((req,res,next)=>{
+.delete(authenticate.verifyUser,(req,res,next)=>{
     Dishes.findById(req.params.dishId)
     .then(dish =>{
         if(dish != null){

@@ -7,7 +7,10 @@ const commentRouter = require("./comments/commentRouter")
 const dishIdRouter = express.Router();
  
 const Dishes = require("../../models/dishes");
-dishIdRouter.get(bodyParser.json());
+dishIdRouter.get(express.json());
+
+//
+const authenticate = require('../../authenticate');
 
 dishIdRouter.route('/:dishId')
 .get((req , res,next)=>{
@@ -19,13 +22,13 @@ dishIdRouter.route('/:dishId')
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);});
   })
-.post((req , res,next)=>{
+.post(authenticate.verifyUser,(req , res,next)=>{
   res.status = 404;
   res.end('Post operation not supported for dishes/'
   +req.params.dishId);
   //return next(res);
 }) 
-.put((req,res,next)=>{
+.put(authenticate.verifyUser,(req,res,next)=>{
   Dishes.findByIdAndUpdate(req.params.dishId,
     { $set:req.body} , {new:true})
     .then(dish=>{
@@ -35,7 +38,7 @@ dishIdRouter.route('/:dishId')
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);})
   })
-.delete((req , res,next)=>{
+.delete(authenticate.verifyUser, (req , res,next)=>{
   Dishes.findByIdAndRemove(req.params.dishId)
   .then(resp=>{
     res.status = 200;

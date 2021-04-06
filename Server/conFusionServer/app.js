@@ -10,6 +10,9 @@ passport
 passport-local
 passport-local-mongoose
 
+To use tokens we installed 
+passport-jwt
+jsonwebtoken
 */
 var createError = require('http-errors');
 var express = require('express');
@@ -20,6 +23,7 @@ var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 var passport = require('passport');
 var authenticate = require('./authenticate');
+var config = require('./config');
 
 //Import routes
 var indexRouter = require('./routes/index');
@@ -32,7 +36,7 @@ var leaderRouter = require('./routes/leaders/leaderRouter');
 const mongoose = require("mongoose");
 
 //Url Stuffs
-const url = "mongodb://localhost:27017/conFusion";
+const url = config.mongoUrl;
 
 //Connect to database
 const connect = mongoose.connect(url);
@@ -51,6 +55,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser('1234'));
+/* We are not using session anymore we included in authenticate and config
 app.use(session({
   name:"session-id",
   secret:'1234',
@@ -58,12 +63,14 @@ app.use(session({
   resave:false,
   store: new FileStore()
 }))
-app.use(express.static(path.join(__dirname, 'public')));
+*/
+// app.use(express.static(path.join(__dirname, 'public')));
 
 //To use passport
-app.use(passport.initialize());
-app.use(passport.session());
 
+// app.use(passport.session()); We are using authenticate and config 
+
+/* We are using authenticate and config
 //Autentication stuffs
 function authErr(res,next,num,mss){
   var err = new Error(mss);
@@ -74,6 +81,7 @@ function authErr(res,next,num,mss){
   next(err);
 }
 
+
 function auth(req,res,next){
   console.log("Session",req.session);
     if(!req.user){
@@ -82,15 +90,17 @@ function auth(req,res,next){
   else{
     next();
   }
-}
+}*/
+
+app.use(passport.initialize());
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.use(auth);
+// app.use(auth); We are using authenticate and config
 
-//app.use('/', indexRouter);
-//app.use('/users', usersRouter);
 app.use('/dishes',dishRouter);
 app.use('/promotions',promoRouter);
 app.use('/leaders',leaderRouter);

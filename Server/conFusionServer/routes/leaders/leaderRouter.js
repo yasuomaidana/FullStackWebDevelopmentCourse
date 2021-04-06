@@ -6,7 +6,10 @@ const leaderIdRoutes = require('./leaederId')
 
 const leaderRouter = express.Router();
 
-leaderRouter.get(bodyParser.json());
+leaderRouter.get(express.json());
+
+const authenticate = require('../../authenticate');
+ 
 const Leaders = require('../../models/leaders')
 leaderRouter.route('/')
 .get((req,res,next) => {
@@ -18,7 +21,7 @@ leaderRouter.route('/')
     },err=>next(err))
     .catch(err=>next(err));
 })
-.post((req, res, next) => {
+.post(authenticate.verifyUser,(req, res, next) => {
     //Creates a new promotion
     Leaders.create(req.body)
     .then(promos=>{
@@ -29,11 +32,11 @@ leaderRouter.route('/')
     .catch(err=>next(err));
     
 })
-.put((req, res, next) => {
+.put(authenticate.verifyUser,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /leaders');
 })
-.delete((req, res, next) => {
+.delete(authenticate.verifyUser,(req, res, next) => {
     Leaders.remove({})
     .then(promos=>{
         res.status = 200;

@@ -15,6 +15,7 @@ const authenticate = require('../../authenticate');
 dishIdRouter.route('/:dishId')
 .get((req , res,next)=>{
     Dishes.findById(req.params.dishId)
+    .populate('comments.author')
     .then(dish=>{
       //console.log("Created dish :",dish);
       res.status = 200;

@@ -16,7 +16,8 @@ dishRouter.get(express.json());
 
 dishRouter.route('/')
 .get((req,res,next) => {
-    Dishes.find({}).then(dishes=>{
+    Dishes.find({}).populate('comments.author')
+    .then(dishes=>{
         res.status = 200;
         res.setHeader("Content-Type",'aplication/json');
         res.json(dishes); 

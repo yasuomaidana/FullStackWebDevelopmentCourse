@@ -12,6 +12,7 @@ const authenticate = require('../../../authenticate');
 commentIdRouter.route('/:dishId/comments/:commentId')
 .get((req,res,next)=>{
     Dishes.findById(req.params.dishId)
+    .populate('comments.author')
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {
             res.statusCode = 200;
@@ -36,7 +37,7 @@ commentIdRouter.route('/:dishId/comments/:commentId')
     res.end("Post operations not supported on dishes/dishID/comments/commentId")
 })
 .put(authenticate.verifyUser,(req,res,next)=>{
-    Dishes.findById(req.params.dishId)
+    Dishes.findById(req.params.dishId) 
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {
             if(req.body.rating){
@@ -45,10 +46,15 @@ commentIdRouter.route('/:dishId/comments/:commentId')
             if (req.body.comment){
                 dish.comments.id(req.params.commentId).comment = req.body.comment;
             }
-            dish.save().then(dish=>{
-                res.statusCode = 200;
-                res.setHeader("Content-Type","application/json");
-                res.json(dish); 
+            dish.save()
+            .then(dish=>{
+                Dishes.findById(dish._id)
+                .populate('comments.author')
+                .then(dish=>{
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type","application/json");
+                    res.json(dish);
+                }) 
             },err=>next(err));
         }
         else if (dish == null){
@@ -70,9 +76,13 @@ commentIdRouter.route('/:dishId/comments/:commentId')
         if (dish != null && dish.comments.id(req.params.commentId) != null) {
             dish.comments.id(req.params.commentId).remove();
             dish.save().then(dish=>{
-                res.statusCode = 200;
-                res.setHeader("Content-Type","application/json");
-                res.json(dish); 
+                Dishes.findById(dish._id)
+                .populate('comments.author')
+                .then(dish=>{
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type","application/json");
+                    res.json(dish);
+                })  
             },err=>next(err));
         }
         else if (dish == null){

@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 
 //Import routes
 const promotionIdRoutes = require('./promoId');
@@ -20,7 +19,7 @@ promotionRouter.route('/')
     },err=>next(err))
     .catch(err=>next(err));
 })
-.post(authenticate.verifyUser,(req, res, next) => {
+.post(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     //Creates a new promotion
     Promotions.create(req.body)
     .then(promos=>{
@@ -31,11 +30,11 @@ promotionRouter.route('/')
     .catch(err=>next(err));
     
 })
-.put(authenticate.verifyUser,(req, res, next) => {
+.put(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /promotions');
 })
-.delete(authenticate.verifyUser,(req, res, next) => {
+.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     Promotions.remove({})
     .then(promos=>{
         res.status = 200;

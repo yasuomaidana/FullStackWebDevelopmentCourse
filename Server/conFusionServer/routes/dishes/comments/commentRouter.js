@@ -55,7 +55,7 @@ post(authenticate.verifyUser,(req,res,next)=>{
     res.end('PUT operation not supported on /dishes/dishId/comments');
     //return next(res);
 })
-.delete(authenticate.verifyUser,(req,res,next)=>{
+.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
     Dishes.findById(req.params.dishId)
     .then(dish =>{
         if(dish != null){

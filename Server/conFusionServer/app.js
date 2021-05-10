@@ -54,43 +54,6 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(cookieParser('1234'));
-/* We are not using session anymore we included in authenticate and config
-app.use(session({
-  name:"session-id",
-  secret:'1234',
-  saveUninitialized:false,
-  resave:false,
-  store: new FileStore()
-}))
-*/
-// app.use(express.static(path.join(__dirname, 'public')));
-
-//To use passport
-
-// app.use(passport.session()); We are using authenticate and config 
-
-/* We are using authenticate and config
-//Autentication stuffs
-function authErr(res,next,num,mss){
-  var err = new Error(mss);
-  err.status = num;
-  console.log(mss,num);
-  res.status(num)
-  .render('error',{message:"Error :"+num,error:err,title:mss});
-  next(err);
-}
-
-
-function auth(req,res,next){
-  console.log("Session",req.session);
-    if(!req.user){
-      authErr(res,next,403,"You are not authenticated");
-  }
-  else{
-    next();
-  }
-}*/
 
 app.use(passport.initialize());
 

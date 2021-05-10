@@ -23,13 +23,13 @@ dishIdRouter.route('/:dishId')
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);});
   })
-.post(authenticate.verifyUser,(req , res,next)=>{
+.post(authenticate.verifyUser,authenticate.verifyAdmin,(req , res,next)=>{
   res.status = 404;
   res.end('Post operation not supported for dishes/'
   +req.params.dishId);
   //return next(res);
 }) 
-.put(authenticate.verifyUser,(req,res,next)=>{
+.put(authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
   Dishes.findByIdAndUpdate(req.params.dishId,
     { $set:req.body} , {new:true})
     .then(dish=>{
@@ -39,7 +39,7 @@ dishIdRouter.route('/:dishId')
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);})
   })
-.delete(authenticate.verifyUser, (req , res,next)=>{
+.delete(authenticate.verifyUser,authenticate.verifyAdmin, (req , res,next)=>{
   Dishes.findByIdAndRemove(req.params.dishId)
   .then(resp=>{
     res.status = 200;

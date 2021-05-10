@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 
 //Import routes
 const leaderIdRoutes = require('./leaederId')
@@ -21,7 +20,7 @@ leaderRouter.route('/')
     },err=>next(err))
     .catch(err=>next(err));
 })
-.post(authenticate.verifyUser,(req, res, next) => {
+.post(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     //Creates a new promotion
     Leaders.create(req.body)
     .then(promos=>{
@@ -32,11 +31,11 @@ leaderRouter.route('/')
     .catch(err=>next(err));
     
 })
-.put(authenticate.verifyUser,(req, res, next) => {
+.put(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /leaders');
 })
-.delete(authenticate.verifyUser,(req, res, next) => {
+.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     Leaders.remove({})
     .then(promos=>{
         res.status = 200;

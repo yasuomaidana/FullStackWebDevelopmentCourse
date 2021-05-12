@@ -4,10 +4,13 @@ const leaderIdRouter = express.Router();
 
 leaderIdRouter.use(express.json());
 const authenticate = require('../../authenticate');
+const cors = require('../cors');
 const Leaders = require("../../models/leaders");
 
 leaderIdRouter.route('/:leaderId')
-.get((req , res,next)=>{
+.options(cors.corsWithOptions,(req,res)=>{res.statusCode = 200;
+  res.end('');})
+.get(cors.cors,(req , res,next)=>{
   Leaders.findById(req.params.leaderId)
   .then(promo=>{
     res.status = 200;
@@ -16,11 +19,11 @@ leaderIdRouter.route('/:leaderId')
   },err=>{next(err)})
   .catch(err=>{next(err)})
 })
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req , res,next)=>{
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req , res,next)=>{
   res.status = 404;
   res.end('Post operation not supported for leaders/'
   +req.params.leaderId);}) 
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
   console.log(req.body);
   console.log(req.params.leaderId);
   Leaders.findByIdAndUpdate(
@@ -33,7 +36,7 @@ leaderIdRouter.route('/:leaderId')
     },
     err=>next(err)).catch(err=>next(err));
 })
-.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
   console.log(req.params.leaderId);
   Leaders.findByIdAndRemove(req.params.leaderId)
   .then(resp=>{

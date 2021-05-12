@@ -4,13 +4,15 @@ const express = require("express");
 const promotionIdRoutes = require('./promoId');
 
 const promotionRouter = express.Router();
+const cors = require('../cors');
 const authenticate = require('../../authenticate');
 promotionRouter.use(express.json());
 
 const Promotions = require("../../models/promotions");
 
 promotionRouter.route('/')
-.get((req,res,next) => {
+.options(cors.corsWithOptions,(req,res)=>{res.sendStatus=200;})
+.get(cors.cors,(req,res,next) => {
     //Obtains promotions
     Promotions.find({}).then(promos=>{
         res.status = 200;
@@ -19,7 +21,7 @@ promotionRouter.route('/')
     },err=>next(err))
     .catch(err=>next(err));
 })
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     //Creates a new promotion
     Promotions.create(req.body)
     .then(promos=>{
@@ -30,11 +32,11 @@ promotionRouter.route('/')
     .catch(err=>next(err));
     
 })
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /promotions');
 })
-.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next) => {
     Promotions.remove({})
     .then(promos=>{
         res.status = 200;

@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 
 //Comment router
 const commentRouter = require("./comments/commentRouter")
-
+const cors = require('../cors');
 const dishIdRouter = express.Router();
  
 const Dishes = require("../../models/dishes");
@@ -13,7 +13,8 @@ dishIdRouter.use(express.json());
 const authenticate = require('../../authenticate');
 
 dishIdRouter.route('/:dishId')
-.get((req , res,next)=>{
+.options(cors.corsWithOptions,(req,res)=>{res.sendStatus=200;})
+.get(cors.cors,(req , res,next)=>{
     Dishes.findById(req.params.dishId)
     .populate('comments.author')
     .then(dish=>{
@@ -23,13 +24,13 @@ dishIdRouter.route('/:dishId')
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);});
   })
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req , res,next)=>{
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req , res,next)=>{
   res.status = 404;
   res.end('Post operation not supported for dishes/'
   +req.params.dishId);
   //return next(res);
 }) 
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
   Dishes.findByIdAndUpdate(req.params.dishId,
     { $set:req.body} , {new:true})
     .then(dish=>{
@@ -39,7 +40,7 @@ dishIdRouter.route('/:dishId')
       res.json(dish); 
     },err=>{next(err);}).catch(err=>{next(err);})
   })
-.delete(authenticate.verifyUser,authenticate.verifyAdmin, (req , res,next)=>{
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin, (req , res,next)=>{
   Dishes.findByIdAndRemove(req.params.dishId)
   .then(resp=>{
     res.status = 200;

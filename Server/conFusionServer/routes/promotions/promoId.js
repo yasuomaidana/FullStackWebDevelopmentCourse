@@ -3,10 +3,12 @@ const express = require("express");
 const promoIdRouter = express.Router();
 const authenticate = require('../../authenticate');
 promoIdRouter.use(express.json());
+const cors = require('../cors');
 const Promotions = require("../../models/promotions");
 
 promoIdRouter.route('/:promoId')
-.get((req , res,next)=>{
+.options(cors.corsWithOptions,(req,res)=>{res.sendStatus=200;})
+.get(cors.cors,(req , res,next)=>{
     Promotions.findById(req.params.promoId)
     .then(promo=>{
       res.status = 200;
@@ -15,11 +17,11 @@ promoIdRouter.route('/:promoId')
     },err=>{next(err)})
     .catch(err=>{next(err)})
   })
-.post(authenticate.verifyUser,authenticate.verifyAdmin,(req , res,next)=>{
+.post(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req , res,next)=>{
   res.status = 404;
   res.end('Post operation not supported for promotions/'
   +req.params.promoId);}) 
-.put(authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
+.put(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
   console.log(req.body);
   console.log(req.params.promoId);
   Promotions.findByIdAndUpdate(
@@ -32,7 +34,7 @@ promoIdRouter.route('/:promoId')
     },
     err=>next(err)).catch(err=>next(err));
 })
-.delete(authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
+.delete(cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyAdmin,(req,res,next)=>{
   console.log(req.params.promoId);
   Promotions.findByIdAndRemove(req.params.promoId)
   .then(resp=>{

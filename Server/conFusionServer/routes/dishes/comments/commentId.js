@@ -8,9 +8,11 @@ const Dishes = require("../../../models/dishes");
 
 commentIdRouter.get(express.json());
 const authenticate = require('../../../authenticate');
+const cors = require('../../cors');
 
 commentIdRouter.route('/:dishId/comments/:commentId')
-.get((req,res,next)=>{
+.options(cors.corsWithOptions,(req,res)=>{res.sendStatus=200;})
+.get(cors.cors,(req,res,next)=>{
     Dishes.findById(req.params.dishId)
     .populate('comments.author')
     .then((dish) => {
@@ -32,11 +34,11 @@ commentIdRouter.route('/:dishId/comments/:commentId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post(authenticate.verifyUser,(req,res,next)=>{
+.post(cors.corsWithOptions,authenticate.verifyUser,(req,res,next)=>{
     res.statusCode = 403;
     res.end("Post operations not supported on dishes/dishID/comments/commentId")
 })
-.put(authenticate.verifyUser,(req,res,next)=>{
+.put(cors.corsWithOptions,authenticate.verifyUser,(req,res,next)=>{
     Dishes.findById(req.params.dishId) 
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {
@@ -70,7 +72,7 @@ commentIdRouter.route('/:dishId/comments/:commentId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete(authenticate.verifyUser,(req,res,next)=>{
+.delete(cors.corsWithOptions,authenticate.verifyUser,(req,res,next)=>{
     Dishes.findById(req.params.dishId)
     .then((dish) => {
         if (dish != null && dish.comments.id(req.params.commentId) != null) {

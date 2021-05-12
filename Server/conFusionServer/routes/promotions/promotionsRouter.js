@@ -5,7 +5,7 @@ const promotionIdRoutes = require('./promoId');
 
 const promotionRouter = express.Router();
 const authenticate = require('../../authenticate');
-promotionRouter.get(express.json());
+promotionRouter.use(express.json());
 
 const Promotions = require("../../models/promotions");
 

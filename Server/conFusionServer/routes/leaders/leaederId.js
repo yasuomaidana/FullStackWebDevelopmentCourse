@@ -2,7 +2,7 @@ const express = require("express");
 
 const leaderIdRouter = express.Router();
 
-leaderIdRouter.get(express.json());
+leaderIdRouter.use(express.json());
 const authenticate = require('../../authenticate');
 const Leaders = require("../../models/leaders");
 

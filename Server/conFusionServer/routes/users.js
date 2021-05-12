@@ -7,7 +7,7 @@ var passport = require('passport');
 var authenticate = require('../authenticate');
  
 
-router.get(express.json());
+router.use(express.json());
 
 /* GET users listing. */
 router.get('/',authenticate.verifyUser,authenticate.verifyAdmin,(req, res, next)=>{

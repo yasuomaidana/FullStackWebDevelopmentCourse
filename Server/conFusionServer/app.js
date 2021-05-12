@@ -31,7 +31,7 @@ var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishes/dishRouter');
 var promoRouter = require('./routes/promotions/promotionsRouter');
 var leaderRouter = require('./routes/leaders/leaderRouter');
-
+var uploadRouter = require('./routes/upload/uploadRouter');
 //Adds mongoose stuffs
 const mongoose = require("mongoose");
 
@@ -39,7 +39,7 @@ const mongoose = require("mongoose");
 const url = config.mongoUrl;
 
 //Connect to database
-const connect = mongoose.connect(url);
+const connect = mongoose.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true });
 
 connect.then(db=>{
   console.log("Connected correctly to server"); 
@@ -52,7 +52,6 @@ app.all('*',(req,res,next)=>{
     return next();}
   else{
     res.redirect(307,'https://'+req.hostname+':'+app.get('secPort')+req.url);
-
   }
 });
 // view engine setup
@@ -75,7 +74,7 @@ app.use('/users', usersRouter);
 app.use('/dishes',dishRouter);
 app.use('/promotions',promoRouter);
 app.use('/leaders',leaderRouter);
-
+app.use('/imageUpload',uploadRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

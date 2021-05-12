@@ -7,7 +7,7 @@ const commentRouter = require("./comments/commentRouter")
 const dishIdRouter = express.Router();
  
 const Dishes = require("../../models/dishes");
-dishIdRouter.get(express.json());
+dishIdRouter.use(express.json());
 
 //
 const authenticate = require('../../authenticate');

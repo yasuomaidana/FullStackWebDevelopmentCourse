@@ -5,7 +5,7 @@ const leaderIdRoutes = require('./leaederId')
 
 const leaderRouter = express.Router();
 
-leaderRouter.get(express.json());
+leaderRouter.use(express.json());
 
 const authenticate = require('../../authenticate');
  

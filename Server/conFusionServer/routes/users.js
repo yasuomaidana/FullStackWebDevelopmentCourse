@@ -20,7 +20,6 @@ router.get('/',cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyA
   ,err=>next(err)).catch(err=>next(err));
 });
 router.post('/signup',cors.corsWithOptions,(req,res,next)=>{
-  
   User.register(new User({username:req.body.username}),
   req.body.password,(err,user)=>{
       if(err){
